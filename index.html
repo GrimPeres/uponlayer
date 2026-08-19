@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uponlayer — Modelação e Impressão 3D</title>
+<meta name="description" content="Uponlayer — modelação e impressão 3D personalizada. Contactos e redes sociais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --ink: #1f3238;
+    --ink-soft: #5c6e73;
+    --teal: #4b8eaa;
+    --teal-deep: #336478;
+    --bronze: #9f7645;
+    --bronze-soft: #c79f6f;
+    --line: rgba(75,142,170,0.10);
+    --radius: 16px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body{
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        var(--line) 0px,
+        var(--line) 1px,
+        transparent 1px,
+        transparent 34px
+      ),
+      var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page{
+    width: 100%;
+    max-width: 480px;
+    padding: 56px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .brand{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.6s ease forwards;
+    animation-delay: 0.05s;
+  }
+
+  .brand img{
+    width: 220px;
+    max-width: 68vw;
+    height: auto;
+  }
+
+  .tagline{
+    margin-top: 18px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  .tagline .accent{
+    color: var(--teal-deep);
+  }
+
+  .eyebrow{
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .links{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .link-wrap{
+    position: relative;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.6s ease forwards;
+  }
+  .link-wrap:nth-child(1){ animation-delay: 0.16s; }
+  .link-wrap:nth-child(2){ animation-delay: 0.26s; }
+  .link-wrap:nth-child(3){ animation-delay: 0.36s; }
+
+  /* signature: layered "print" shadow behind each card, like stacked filament layers */
+  .link-wrap::before,
+  .link-wrap::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 100%;
+    border-radius: var(--radius);
+    z-index: 0;
+    transition: transform 0.22s ease;
+  }
+  .link-wrap::before{
+    background: var(--teal);
+    opacity: 0.55;
+    transform: translateY(4px);
+  }
+  .link-wrap::after{
+    background: var(--bronze-soft);
+    opacity: 0.45;
+    transform: translateY(8px);
+  }
+  .link-wrap:active::before{ transform: translateY(2px); }
+  .link-wrap:active::after{ transform: translateY(4px); }
+
+  .link{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--ink);
+    border: 1px solid rgba(31,50,56,0.06);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    box-shadow: 0 1px 2px rgba(31,50,56,0.05);
+  }
+
+  .link-wrap:hover .link{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(31,50,56,0.08);
+  }
+  .link-wrap:active .link{
+    transform: translateY(1px);
+  }
+
+  .icon{
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+  }
+  .icon svg{ width: 20px; height: 20px; }
+
+  .link-text{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .link-label{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15.5px;
+  }
+
+  .link-value{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  footer{
+    margin-top: 48px;
+    text-align: center;
+    opacity: 0;
+    animation: rise 0.6s ease forwards;
+    animation-delay: 0.46s;
+  }
+
+  footer p{
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+
+  @keyframes rise{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .brand, .link-wrap, footer{
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  a:focus-visible, .link:focus-visible{
+    outline: 2px solid var(--teal-deep);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="brand">
+    <img src="logo.svg" alt="Uponlayer">
+    <p class="tagline">Modelação e impressão 3D, <span class="accent">à tua medida.</span></p>
+    <p class="eyebrow">Camada a camada</p>
+  </div>
+
+  <div class="links">
+
+    <div class="link-wrap">
+      <a class="link" href="https://www.instagram.com/uponlayer/" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="#4b8eaa" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="4.2" stroke="#4b8eaa" stroke-width="1.6"/>
+            <circle cx="17.2" cy="6.8" r="1.1" fill="#4b8eaa"/>
+          </svg>
+        </span>
+        <span class="link-text">
+          <span class="link-label">Instagram</span>
+          <span class="link-value">@uponlayer</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="link-wrap">
+      <a class="link" href="mailto:geral@uponlayer.pt">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="5" width="18" height="14" rx="3" stroke="#4b8eaa" stroke-width="1.6"/>
+            <path d="M4 7l8 6 8-6" stroke="#4b8eaa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="link-text">
+          <span class="link-label">Email</span>
+          <span class="link-value">geral@uponlayer.pt</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="link-wrap">
+      <a class="link" href="https://wa.me/351914860158" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3a9 9 0 0 0-7.75 13.5L3 21l4.6-1.22A9 9 0 1 0 12 3Z" stroke="#4b8eaa" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M8.7 8.6c.2-.5.4-.5.6-.5h.5c.15 0 .35 0 .5.4.2.5.65 1.7.7 1.8.05.15.1.3 0 .5-.1.2-.15.3-.3.45-.15.15-.3.3-.45.4-.15.15-.3.3-.15.6.15.3.7 1.2 1.5 1.9 1.05.95 1.9 1.25 2.2 1.4.3.15.5.1.65-.05.2-.2.7-.8.9-1.1.2-.3.4-.25.65-.15.25.1 1.6.75 1.9.9.3.15.45.2.5.35.1.15.1.85-.2 1.65-.3.8-1.7 1.5-2.35 1.55-.6.05-1.35.1-4.35-1.9-3.6-2.4-3.55-4.1-3.6-4.6-.05-.5.4-1.3.65-1.65Z" fill="#4b8eaa"/>
+          </svg>
+        </span>
+        <span class="link-text">
+          <span class="link-label">WhatsApp</span>
+          <span class="link-value">+351 914 860 158</span>
+        </span>
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Uponlayer &middot; site completo brevemente</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
