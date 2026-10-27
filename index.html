@@ -28,7 +28,38 @@
 .editorial-art:before{display:none}
 .about-art{background:url('https://images.unsplash.com/photo-1758387836566-6a342434f5b4?auto=format&fit=crop&w=1100&q=82') center/cover no-repeat;border:0}
 @media(max-width:650px){.hero-visual{min-height:330px}}
-</style></head><body>
+</style>
+<style id="uponlayer-approved-assets-layout">
+/* Imagens locais aprovadas: ativadas automaticamente quando disponíveis */
+.hero-visual{background-position:center center!important;background-size:cover!important}
+.product-image{background-position:center!important;background-size:cover!important}
+.service-art{background-position:center!important;background-size:cover!important}
+.benefits{background-color:#151419;position:relative}
+.benefits:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#151419ed,#151419df),url("assets/images/02-faixa-vantagens.jpg") center/cover;opacity:.7;pointer-events:none}
+.benefits .container{position:relative}
+.editorial-art,.about-art{background-position:center!important;background-size:cover!important}
+@media(min-width:651px){.hero-visual{min-height:520px}.product-image{aspect-ratio:371/239}.service-art{aspect-ratio:371/252;height:auto}.editorial-art{min-height:450px}}
+@media(max-width:650px){.hero-visual{min-height:290px}.product-image{aspect-ratio:371/239}.service-art{height:240px}}
+</style>
+<script id="uponlayer-approved-assets-loader">
+/* Preserva o aspeto atual enquanto as fotografias não estiverem no repositório. */
+(function(){
+ const assets=[
+ ['.hero-visual','01-hero.jpg'],
+ ['.product-grid .product:nth-child(1) .product-image','03-porta-chaves.jpg'],
+ ['.product-grid .product:nth-child(2) .product-image','04-decoracao.jpg'],
+ ['.product-grid .product:nth-child(3) .product-image','05-suporte-telemovel.jpg'],
+ ['.product-grid .product:nth-child(4) .product-image','06-lembrancas.jpg'],
+ ['.service-grid .service:nth-child(1) .service-art','07-impressao-3d.jpg'],
+ ['.service-grid .service:nth-child(2) .service-art','08-modelacao-3d.jpg'],
+ ['.service-grid .service:nth-child(3) .service-art','09-prototipagem.jpg'],
+ ['.editorial-art','06-lembrancas.jpg'],
+ ['.about-art','10-sobre-nos.jpg']
+ ];
+ assets.forEach(([selector,file])=>{const el=document.querySelector(selector);if(!el)return;const url='assets/images/'+file;const img=new Image();img.onload=()=>{el.style.setProperty('background-image','url("'+url+'")','important');el.style.setProperty('background-size','cover','important');el.style.setProperty('background-position','center','important')};img.src=url;});
+})();
+</script>
+</head><body>
 <div class="announcement">UPONLAYER · IMPRESSÃO 3D À TUA MEDIDA</div>
 <header class="header"><div class="container nav"><a class="logo" href="#inicio" aria-label="UponLayer — início"><img src="logo.svg" alt="UponLayer"></a><nav class="links" id="menu" aria-label="Navegação principal"><a href="#inicio">Início</a><a href="#produtos">Produtos</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre nós</a><a href="#contactos">Contactos</a></nav><a class="nav-cta" href="mailto:geral@uponlayer.pt?subject=Pedido%20de%20or%C3%A7amento">Pedir orçamento ↗</a><button class="mobile-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">☰</button></div></header>
 <main>
